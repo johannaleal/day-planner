@@ -9,11 +9,11 @@ In this project, I created a simple calendar application that allows a user to s
 * Hours that are in the past will display in grey.
 * Hours that are in the future will display in green.
 * The present hour will display in red.
-* A textarea will display next to each hour where the user will be able to display an event.
+* A textarea will display next to each hour where the user will be able to enter an event.
 * A button with a lock icon will display next to each textarea.
 * If the user clicks on the lock button, the event they entered for that time will be saved.
-* Hours that are in the past will not have edidtable textareas and their buttons will be disabled.
-* The entered data will be saved to local storage so that when the user refreshes the page, the date will persist.
+* Hours that are in the past will not have editable textareas and their buttons will be disabled.
+* The entered data will be saved to local storage so that when the user refreshes the page, the data will persist.
 
 ## Installation
 
