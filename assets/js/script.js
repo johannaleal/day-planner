@@ -76,9 +76,14 @@ for (i; i < 9; i++) {
         textArea = textArea + " past\" readonly>";
         disabled = "disabled";
     }
-    
+
     // Append the text area to the row.
     newTimeBlock.append($(textArea));
+    
+    if (savedEvent != "") {
+        $("#event" + i.toString()).val(savedEvent);
+        //console.log(textArea)
+    }
 
     // Display the button.
     newElement = $("<button value=\"" + i + "\" class=\"col-md-1 btn saveBtn\"" + disabled + ">");
