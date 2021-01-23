@@ -1,23 +1,43 @@
-// Time block object.
+// Time block object and time block array
 var timeBlockObject = {
     hour: null,
     event: "",
 };
-
-// Time block object array
 var timeBlocks = [];
  
-// Display current date in header.
-$("#currentDay").text(moment().format("dddd, MMMM Do YYYY h:mmA"));
-
 // Get current time.
 // Start hour to display
 var i = 0;
 var currentHour = moment("12:00", "HH:mm:ss");
 var hour = 9;
 
-// 
+// See if any events were previously saved to local storage.
+var savedTimeBlocks = JSON.parse(localStorage.getItem("time-blocks"));
+var savedData = false;
+
+// If there is data saved in local storage then set the flag to true.
+if (savedTimeBlocks.length > 0) {
+    savedData = true;
+}
+//console.log(savedTimeBlocks[0].hour);
+
+// Display the current date in header.
+$("#currentDay").text(moment().format("dddd, MMMM Do YYYY h:mmA"));
+
+// Build the day planner from 9AM to 5PM.
 for (i; i < 9; i++) {
+    // Saved data vars for the current hour being built
+    var savedHour; //?????????????
+    var savedEvent = "";
+    var savedDataIndex;
+
+    // ======================
+    if (savedData) {
+        savedDataIndex = lookForSavedData(savedTimeBlocks, i);
+        savedEvent = savedTimeBlocks[savedDataIndex].event;
+        //console.log(savedTimeBlocks[savedDataIndex].event);
+    };
+
     // Flag for disabling button on past events.
     var disabled = "";
 
@@ -29,13 +49,13 @@ for (i; i < 9; i++) {
     // Class for description which will determine background color.
     var bgColorClass = "";
 
-    // Display the hour
+    // Append the hour div to the row.
     var displayHour = moment(hour.toString() + ":00:00", "HH:mm:ss");
     var newElement = $("<div class=\"hour col-md-1\">");
     newElement.text(moment(displayHour).format("hA"));
     newTimeBlock.append(newElement);
 
-    // Display the description.
+    // Add the textarea that will contain the event entered by the user.
     var textArea = "<textarea id=\"event" + i + "\" class=\"description col-md-10";
 
     // If the hour being displayed is the same as the current
@@ -57,6 +77,7 @@ for (i; i < 9; i++) {
         disabled = "disabled";
     }
     
+    // Append the text area to the row.
     newTimeBlock.append($(textArea));
 
     // Display the button.
@@ -91,4 +112,19 @@ function saveData(hourToSave) {
     localStorage.setItem("time-blocks", JSON.stringify(timeBlocks));
 }
 
+function lookForSavedData(savedData, curri) {
+    var arrayLength = saveData.length;
+    var returnIndex = 0;
+
+    //console.log(arrayLength);
+
+    for (var i = 0; i < arrayLength; i++) {
+        if (Number(savedData[i].hour) === i) {
+            returnIndex = i;
+            break;
+        }
+    }
+
+    return returnIndex;
+}
 
